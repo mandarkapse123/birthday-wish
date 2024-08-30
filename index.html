@@ -12,11 +12,12 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            background-color: #f0f0f0;
+            position: relative;
             background-image: url('background-image.jpg'); /* Update with your image file name */
-            background-size: cover; /* Cover the entire body */
+            background-size: 50%; /* Adjust the size of the background image */
             background-position: center; /* Center the image */
             background-repeat: no-repeat; /* Prevent image repeat */
-            position: relative;
         }
 
         #wish {
@@ -96,4 +97,25 @@
 
             count++;
             if (count < repetitions) {
-                setTimeout(moveText, du
+                setTimeout(moveText, duration);
+            } else {
+                showConfetti(); // Show confetti when text stops moving
+            }
+        }
+
+        function showConfetti() {
+            const confettiCount = 150; // Number of confetti pieces
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = 'hsl(' + Math.random() * 360 + ', 100%, 50%)'; // Random confetti color
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random fall duration
+                document.body.appendChild(confetti);
+            }
+        }
+
+        moveText(); // Start moving the text
+    </script>
+</body>
+</html>
