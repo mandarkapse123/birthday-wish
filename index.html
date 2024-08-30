@@ -12,11 +12,10 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-image: url('https://raw.githubusercontent.com/username/repository/branch/path/to/background-image.jpg'); /* Replace with your raw URL */
-            background-size: 30% auto; /* Adjust the size here (50% of container width) */
+            background-image: url('background-image.jpg'); /* Update with your image file name */
+            background-size: cover; /* Cover the entire body */
             background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent repeating the image */
-            background-color: #f0f0f0; /* Fallback color */
+            background-repeat: no-repeat; /* Prevent image repeat */
             position: relative;
         }
 
@@ -44,7 +43,7 @@
             width: 100%;
             text-align: center;
             font-size: 38px; /* Slightly larger font size for static message */
-            color: #333;
+            color: white; /* Change font color to white */
         }
 
         .confetti {
@@ -97,25 +96,4 @@
 
             count++;
             if (count < repetitions) {
-                setTimeout(moveText, duration);
-            } else {
-                showConfetti(); // Show confetti when text stops moving
-            }
-        }
-
-        function showConfetti() {
-            const confettiCount = 150; // Number of confetti pieces
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * window.innerWidth + 'px';
-                confetti.style.backgroundColor = 'hsl(' + Math.random() * 360 + ', 100%, 50%)'; // Random confetti color
-                confetti.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random fall duration
-                document.body.appendChild(confetti);
-            }
-        }
-
-        moveText(); // Start moving the text
-    </script>
-</body>
-</html>
+                setTimeout(moveText, du
