@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Wish</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        #wish {
+            position: absolute;
+            font-size: 48px; /* Larger font size */
+            font-weight: bold;
+            animation: rainbow 3s infinite; /* Rainbow effect */
+        }
+
+        @keyframes rainbow {
+            0% { color: red; }
+            14% { color: orange; }
+            28% { color: yellow; }
+            42% { color: green; }
+            57% { color: blue; }
+            71% { color: indigo; }
+            85% { color: violet; }
+            100% { color: red; }
+        }
+
+        #static-message {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 28px; /* Slightly larger font size for static message */
+            color: #333;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f1c40f;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio element to play the song -->
+    <audio id="birthday-song" autoplay>
+        <source src="happy_birthday_song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="wish">Happy Birthday to you, Sayali!</div>
+    <div id="static-message">Baar Baar Din Yeh Aaye...</div>
+    <script>
+        const wishElement = document.getElementById('wish');
+        const repetitions = 15;
+        const duration = 100; // Duration in milliseconds for smoother movement
+        let count = 0;
+
+        function moveText() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            // Generate random x and y positions
+            const randomX = Math.floor(Math.random() * (screenWidth - wishElement.offsetWidth));
+            const randomY = Math.floor(Math.random() * (screenHeight - wishElement.offsetHeight - 50)); // Keep above the static message
+
+            // Set new random positions with smooth transition
+            wishElement.style.transition = 'top 0.5s, left 0.5s'; // Smooth transition
+            wishElement.style.left = randomX + 'px';
+            wishElement.style.top = randomY + 'px';
+
+            count++;
+            if (count < repetitions) {
+                setTimeout(moveText, duration);
+            } else {
+                showConfetti(); // Show confetti when text stops moving
+            }
+        }
+
+        function showConfetti() {
+            const confettiCount = 100; // Number of confetti pieces
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = 'hsl(' + Math.random() * 360 + ', 100%, 50%)'; // Random confetti color
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random fall duration
+                document.body.appendChild(confetti);
+            }
+        }
+
+        moveText(); // Start moving the text
+    </script>
+</body>
+</html>
