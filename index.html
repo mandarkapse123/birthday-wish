@@ -12,12 +12,11 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #f0f0f0;
-            position: relative;
-            background-image: url('background-image.jpg'); /* Update with your image file name */
-            background-size: 50%; /* Adjust the size of the background image */
+            background-image: url('https://raw.githubusercontent.com/username/repository/branch/path/to/background-image.jpg'); /* Replace with your raw URL */
+            background-size: cover; /* Cover the entire viewport */
             background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent image repeat */
+            background-color: #f0f0f0; /* Fallback color */
+            position: relative;
         }
 
         #wish {
@@ -44,7 +43,7 @@
             width: 100%;
             text-align: center;
             font-size: 38px; /* Slightly larger font size for static message */
-            color: white; /* Change font color to white */
+            color: #333;
         }
 
         .confetti {
@@ -65,6 +64,13 @@
                 opacity: 0;
             }
         }
+
+        #uploaded-image {
+            position: absolute;
+            max-width: 150px; /* Adjust as needed */
+            max-height: 150px; /* Adjust as needed */
+            cursor: pointer; /* Indicate it's clickable */
+        }
     </style>
 </head>
 <body>
@@ -76,6 +82,13 @@
 
     <div id="wish">Happy Birthday to you, Sayali!</div>
     <div id="static-message">Baar Baar Din Yeh Aaye...</div>
+    
+    <!-- Image upload input -->
+    <input type="file" id="image-upload" accept="image/*" style="position: absolute; top: 20px; right: 20px;">
+
+    <!-- Uploaded image container -->
+    <img id="uploaded-image" src="" alt="Uploaded Image">
+
     <script>
         const wishElement = document.getElementById('wish');
         const repetitions = 25;
@@ -114,6 +127,38 @@
                 document.body.appendChild(confetti);
             }
         }
+
+        function moveImage(event) {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            // Generate random x and y positions for image
+            const randomX = Math.floor(Math.random() * (screenWidth - event.target.offsetWidth));
+            const randomY = Math.floor(Math.random() * (screenHeight - event.target.offsetHeight));
+
+            // Set new random positions with smooth transition
+            event.target.style.transition = 'top 0.5s, left 0.5s'; // Smooth transition
+            event.target.style.left = randomX + 'px';
+            event.target.style.top = randomY + 'px';
+        }
+
+        // Handle image upload
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const imgElement = document.getElementById('uploaded-image');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imgElement.src = e.target.result;
+                    imgElement.style.display = 'block'; // Show the image
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Add click event to move the image
+        document.getElementById('uploaded-image').addEventListener('click', moveImage);
 
         moveText(); // Start moving the text
     </script>
