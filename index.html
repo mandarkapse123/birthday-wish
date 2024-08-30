@@ -43,7 +43,7 @@
             width: 100%;
             text-align: center;
             font-size: 38px; /* Slightly larger font size for static message */
-            color: #333;
+            color: black; /* Changed to black */
         }
 
         .confetti {
@@ -65,7 +65,7 @@
             }
         }
 
-        #uploaded-image {
+        #moving-image {
             position: absolute;
             max-width: 150px; /* Adjust as needed */
             max-height: 150px; /* Adjust as needed */
@@ -83,11 +83,8 @@
     <div id="wish">Happy Birthday to you, Sayali!</div>
     <div id="static-message">Baar Baar Din Yeh Aaye...</div>
     
-    <!-- Image upload input -->
-    <input type="file" id="image-upload" accept="image/*" style="position: absolute; top: 20px; right: 20px;">
-
-    <!-- Uploaded image container -->
-    <img id="uploaded-image" src="" alt="Uploaded Image">
+    <!-- Added image -->
+    <img id="moving-image" src="https://example.com/path/to/your-image.jpg" alt="Moving Image"> <!-- Replace with your image URL -->
 
     <script>
         const wishElement = document.getElementById('wish');
@@ -112,7 +109,7 @@
             if (count < repetitions) {
                 setTimeout(moveText, duration);
             } else {
-                showConfetti(); // Show confetti when text stops moving
+                // Do nothing as confetti starts immediately
             }
         }
 
@@ -142,23 +139,11 @@
             event.target.style.top = randomY + 'px';
         }
 
-        // Handle image upload
-        document.getElementById('image-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const imgElement = document.getElementById('uploaded-image');
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imgElement.src = e.target.result;
-                    imgElement.style.display = 'block'; // Show the image
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+        // Start confetti immediately
+        showConfetti();
 
         // Add click event to move the image
-        document.getElementById('uploaded-image').addEventListener('click', moveImage);
+        document.getElementById('moving-image').addEventListener('click', moveImage);
 
         moveText(); // Start moving the text
     </script>
